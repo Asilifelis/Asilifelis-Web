@@ -4,7 +4,7 @@ import {startAuthentication, startRegistration} from "@simplewebauthn/browser";
   providedIn: 'root',
 })
 export class AuthenticationService {
-  private BaseUri = "http://localhost:32770";
+  private BaseUri = "https://winter-cottage.eu";
 
   async getActor() : Promise<{id: string, name: string, preferredUsername: string, summary: string, outbox: URL, inbox: URL}> {
     let me = await fetch(new URL("/api/authenticate/me", this.BaseUri), {

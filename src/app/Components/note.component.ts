@@ -4,14 +4,15 @@ import {Component, Input} from "@angular/core";
   selector: "note",
   standalone: true,
   template: `
-    <li class="p-1 border-b-2 border-slate-500 bg-slate-100 flex flex-col gap-2">
+    <li class="border-b-2 border-slate-500 bg-slate-100 flex flex-col gap-4">
       @if(this.author) {
-        <span>
-          {{this.author.name}} ({{this.author.preferredUsername}})
+        <span class="p-2 bg-slate-800 text-white">
+          {{this.author.name}} <br>
+          <small>&#64;{{this.author.preferredUsername}}&#64;{{this.author.id.hostname}}</small>
         </span>
       }
-      <span>{{note.content}}</span>
-      <span>{{this.getPublishTime()}}</span>
+      <span class="whitespace-pre-line">{{note.content}}</span>
+      <span class="p-2 bg-slate-800 text-white">{{this.getPublishTime()}}</span>
     </li>
   `,
 })
@@ -37,6 +38,7 @@ export class NoteComponent {
       }
     });
     this.author = author.ok ? await author.json() : null;
+    this.author!.id = new URL(this.author!.id);
   }
 
   protected readonly Date = Date;
